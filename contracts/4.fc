@@ -2,7 +2,7 @@
   TASK 4 - Caesar Cipher
   Implement a Caesar cipher encryption and decryption functions.
   The input is a string (https://docs.ton.org/develop/smart-contracts/guidelines/internal-messages#simple-message-with-comment)
-  where the text is encrypted in a cell (after 32bit 00000000 prefix flag), the algorithm rotates the characters and the last ASCI
+  where the text is encrypted in a cell (after 32bit 00000000 prefix flag), the algorithm rotates the characters and the last ASCII
   character should go to the beginning. Return new text encoded in cell.
 -}
 
@@ -12,11 +12,11 @@
 ;; testable
 (cell) caesar_cipher_encrypt(int shift, cell text) method_id {
     slice ds = text.begin_parse();
-    int flag = ds~load_int(32);
+    int flag = ds~load_uint(32);
     tuple tp = empty_tuple();
     int n = 0;
     while(~ ds.slice_empty?()){
-        int x = ds~load_int(8);
+        int x = ds~load_uint(8);
         tp~tpush(x);
         n = n + 1;
     }
@@ -31,9 +31,9 @@
     }
     i = 0;
     builder x = begin_cell();
-    x~store_int(flag, 32);
+    x~store_uint(flag, 32);
     repeat(n){
-        x~store_int(TP.at(i), 8);
+        x~store_uint(TP.at(i), 8);
         i = i + 1;
     }
     return x.end_cell();
@@ -42,11 +42,11 @@
 ;; testable
 (cell) caesar_cipher_decrypt(int shift, cell text) method_id {
     slice ds = text.begin_parse();
-    int flag = ds~load_int(32);
+    int flag = ds~load_uint(32);
     tuple tp = empty_tuple();
     int n = 0;
     while(~ ds.slice_empty?()){
-        int x = ds~load_int(8);
+        int x = ds~load_uint(8);
         tp~tpush(x);
         n = n + 1;
     }
@@ -61,9 +61,9 @@
     }
     i = 0;
     builder x = begin_cell();
-    x~store_int(flag, 32);
+    x~store_uint(flag, 32);
     repeat(n){
-        x~store_int(TP.at(i), 8);
+        x~store_uint(TP.at(i), 8);
         i = i + 1;
     }
     return x.end_cell();
