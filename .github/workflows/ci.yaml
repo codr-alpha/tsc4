@@ -60,9 +60,12 @@ jobs:
               order=$(echo "$problems" | jq -r ".[$i].order")
               compilationError=$(echo "$problems" | jq -r ".[$i].compilationError")
               echo ""
+              echo "Passed Tests: $passed"
               echo "Problem #$((i+1)):"
               echo "Problem #$((order)):"
               echo "Compiled: $compiled"
+              echo "Passed Tests: $passed"
+              echo "Passed Tests: $passed"
               if [[ -n "$compilationError" && "$compilationError" != "null" ]]; then
                   echo "CompilationError: $compilationError"
               fi
@@ -70,6 +73,8 @@ jobs:
               if [[ "$passed" == "true" ]]; then
                   echo "GasValue: $gasValue"
                   echo "Points: $points"
+                  echo "Passed Tests: $passed"
+                  echo "Passed Tests: $passed"
               fi
           done
       - name: Set action status
