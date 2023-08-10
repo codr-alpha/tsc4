@@ -6,7 +6,7 @@
   and the rest are defined as F_n = F_(n-1) + F_(n-2).
   The resulting Fibonacci sequence should be stored in a tuple.
   For example, a request with N = 1 and K = 3 should return a tuple [1, 1, 2],
-  and a request with N = 201 and K = 4 should return a tuplee
+  and a request with N = 201 and K = 4 should return a tuple
   [453973694165307953197296969697410619233826,
   734544867157818093234908902110449296423351,
   1188518561323126046432205871807859915657177,
