@@ -11,11 +11,58 @@
 
 ;; testable
 (cell) caesar_cipher_encrypt(int shift, cell text) method_id {
-  return begin_cell().end_cell();
+    slice ds = text.begin_parse();
+    int flag = ds~load_int(32);
+    tuple tp = empty_tuple();
+    int n = 0;
+    while(ds.empty() == 0){
+        int x = ds~load_int(8);
+        tp~tpush(x);
+        n = n + 1;
+    }
+    if(n <= 1){ return text;}
+    shift = shift % n;
+    int i = n - shift;
+    tuple TP = empty_tuple();
+    repeat(n){
+        if(i == n){ i = 0; }
+        TP~tpush(tp.at(i));
+        i = i + 1;
+    }
+    i = 0;
+    builder x = begin_cell();
+    repeat(n){
+        x~store_int(TP.at(i));
+        i = i + 1;
+    }
+    return x.end_cell();
 }
 
 ;; testable
 (cell) caesar_cipher_decrypt(int shift, cell text) method_id {
-  return begin_cell().end_cell();
+    slice ds = text.begin_parse();
+    int flag = ds~load_int(32);
+    tuple tp = empty_tuple();
+    int n = 0;
+    while(ds.empty() == 0){
+        int x = ds~load_int(8);
+        tp~tpush(x);
+        n = n + 1;
+    }
+    if(n <= 1){ return text;}
+    shift = shift % n;
+    int i = shift;
+    tuple TP = empty_tuple();
+    repeat(n){
+        if(i == n){ i = 0; }
+        TP~tpush(tp.at(i));
+        i = i + 1;
+    }
+    i = 0;
+    builder x = begin_cell();
+    repeat(n){
+        x~store_int(TP.at(i));
+        i = i + 1;
+    }
+    return x.end_cell();
 }
-
