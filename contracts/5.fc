@@ -18,11 +18,11 @@
 
 ;; testable
 (tuple) fibonacci_sequence (int n, int k) method_id {
-    if(k == 0){ return null(); }
     int F_0 = 0;
     int F_1 = 1;
     int i = 0;
     tuple result = empty_tuple();
+    if(k == 0){ return result; }
     while(i < (n + k)){
         if(i >= n){
             result~tpush(F_0);
