@@ -31,8 +31,9 @@
     }
     i = 0;
     builder x = begin_cell();
+    x.store_int(flag, 32);
     repeat(n){
-        x~store_int(TP.at(i));
+        x~store_int(TP.at(i), 8);
         i = i + 1;
     }
     return x.end_cell();
@@ -60,8 +61,9 @@
     }
     i = 0;
     builder x = begin_cell();
+    x.store_int(flag, 32);
     repeat(n){
-        x~store_int(TP.at(i));
+        x~store_int(TP.at(i), 8);
         i = i + 1;
     }
     return x.end_cell();
