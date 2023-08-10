@@ -22,7 +22,7 @@
     }
     if(n <= 1){ return text;}
     shift = shift % n;
-    int i = n - shift;
+    int i = shift;
     tuple TP = empty_tuple();
     repeat(n){
         if(i == n){ i = 0; }
@@ -52,7 +52,7 @@
     }
     if(n <= 1){ return text;}
     shift = shift % n;
-    int i = shift;
+    int i = n - shift;
     tuple TP = empty_tuple();
     repeat(n){
         if(i == n){ i = 0; }
