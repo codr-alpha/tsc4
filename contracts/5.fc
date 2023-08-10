@@ -24,7 +24,7 @@
     tuple result = empty_tuple();
     while(i < (n + k)){
         if(i >= n){
-            result.tpush(F_0);
+            result~tpush(F_0);
         }
         int x = F_0 + F_1;
         F_0 = F_1;
