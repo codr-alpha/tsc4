@@ -31,7 +31,7 @@
     }
     i = 0;
     builder x = begin_cell();
-    x.store_uint(flag, 32);
+    x~store_uint(flag, 32);
     repeat(n){
         x~store_uint(TP.at(i), 8);
         i = i + 1;
@@ -61,7 +61,7 @@
     }
     i = 0;
     builder x = begin_cell();
-    x.store_uint(flag, 32);
+    x~store_uint(flag, 32);
     repeat(n){
         x~store_uint(TP.at(i), 8);
         i = i + 1;
