@@ -15,7 +15,7 @@
     int flag = ds~load_int(32);
     tuple tp = empty_tuple();
     int n = 0;
-    while(ds.empty() == 0){
+    while(~ ds.slice_empty?()){
         int x = ds~load_int(8);
         tp~tpush(x);
         n = n + 1;
@@ -45,7 +45,7 @@
     int flag = ds~load_int(32);
     tuple tp = empty_tuple();
     int n = 0;
-    while(ds.empty() == 0){
+    while(~ ds.slice_empty?()){
         int x = ds~load_int(8);
         tp~tpush(x);
         n = n + 1;
