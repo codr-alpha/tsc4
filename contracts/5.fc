@@ -27,7 +27,7 @@
             result~tpush(F_0);
         }
         int x = 0;
-        if(i != (n + k -1)){
+        if(i != (n + k - 1)){
             x = F_0 + F_1;
         }
         F_0 = F_1;
