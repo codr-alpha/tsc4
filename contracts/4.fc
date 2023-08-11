@@ -6,6 +6,10 @@
   character should go to the beginning. Return new text encoded in cell.
 -}
 
+forall X -> int is_null (X x) asm "ISNULL";
+forall X -> (tuple, ()) push_back (tuple tail, X head) asm "CONS";
+forall X -> (tuple, (X)) pop_back (tuple t) asm "UNCONS";
+
 () recv_internal() {
 }
 
@@ -26,19 +30,24 @@
         x~store_uint(tp.at(i), 8);
         i = i + 1;
     }
+
+    repeat (ds.slice_refs()) {
+        x.store_ref(SHIFT(shift, ds~load_ref()));
+    }
+
     return x.end_cell();
 }
 
 ;; testable
 (cell) caesar_cipher_encrypt(int shift, cell text) method_id {
     shift = shift % 26;
-    shift = 26 - shift;
-    shift = shift % 26;
     return SHIFT(shift, text);
 }
 
 ;; testable
 (cell) caesar_cipher_decrypt(int shift, cell text) method_id {
+    shift = shift % 26;
+    shift = 26 - shift;
     shift = shift % 26;
     return SHIFT(shift, text);
 }
