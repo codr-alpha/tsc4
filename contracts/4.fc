@@ -20,7 +20,7 @@ int shif(int x, int y) {
 }
 
 
-(cell) SHIFT(int shift, slice ds) method_id{
+(cell) SHIFT(int shift, slice ds) method_id {
     builder bld = begin_cell();
     
     repeat (ds.slice_refs()) {
