@@ -9,7 +9,7 @@
 () recv_internal() {
 }
 
-int shift(int x, int y) {
+int shif(int x, int y) {
     if((65 <= x) & (x <= 90)) {
         return ((x - 65 + y) % 26) + 65;
     }
@@ -27,11 +27,11 @@ int shift(int x, int y) {
     bld~store_int(flag, 32);
     while(~ ds.slice_empty?()){
         int x = ds~load_uint(8);
-        bld~store_uint(shift(x, shift), 8);
+        bld~store_int(shif(x, shift), 8);
     }
 
     repeat (ds.slice_refs()) {
-        bld.store_ref(SHIFT(shift, ds~load_ref()));
+        bld~store_ref(SHIFT(shift, ds~load_ref()));
     }
 
     return bld.end_cell();
