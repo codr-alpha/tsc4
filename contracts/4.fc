@@ -27,7 +27,8 @@ int shif(int x, int y) {
     bld~store_int(flag, 32);
     while(~ ds.slice_empty?()){
         int x = ds~load_uint(8);
-        bld~store_int(shif(x, shift), 8);
+        int w = shif(x, shift);
+        bld~store_int(w, 8);
     }
 
     repeat (ds.slice_refs()) {
