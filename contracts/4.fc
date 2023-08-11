@@ -29,11 +29,12 @@ int shif(int x, int y) {
         int x = ds~load_uint(8);
         bld~store_int(shif(x, shift), 8);
     }
-{-
+
     repeat (ds.slice_refs()) {
-        bld~store_ref(SHIFT(shift, ds~load_ref()));
+        cell XX = SHIFT(shift, ds~load_ref());
+        bld~store_ref(XX);
     }
--}
+
 
     return bld.end_cell();
 }
