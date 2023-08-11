@@ -48,8 +48,9 @@ int shif(int x, int y) {
 
 ;; testable
 (cell) caesar_cipher_decrypt(int shift, cell text) method_id {
-    shift = shift % 26;
-    shift = 26 - shift;
-    shift = shift % 26;
-    return SHIFT(shift, text);
+  ;;  shift = shift % 26;
+   ;; shift = 26 - shift;
+   ;; shift = shift % 26;
+   ;; return SHIFT(shift, text);
+   return begin_cell().end_cell();
 }
