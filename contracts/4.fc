@@ -32,13 +32,13 @@
 ;; testable
 (cell) caesar_cipher_encrypt(int shift, cell text) method_id {
     shift = shift % 26;
+    shift = 26 - shift;
+    shift = shift % 26;
     return SHIFT(shift, text);
 }
 
 ;; testable
 (cell) caesar_cipher_decrypt(int shift, cell text) method_id {
-    shift = shift % 26;
-    shift = 26 - shift;
     shift = shift % 26;
     return SHIFT(shift, text);
 }
