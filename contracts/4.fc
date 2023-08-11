@@ -23,7 +23,7 @@ int shif(int x, int y) {
 (cell) SHIFT(int shift, slice ds, int bg) {
     builder bld = begin_cell();
     
-    repeat (ds.slice_refs()) {
+    if (ds.slice_refs() > 0) {
         cell XX = SHIFT(shift, ds~load_ref().begin_parse(), 0);
         bld = store_ref(bld, XX);
     }
@@ -33,7 +33,7 @@ int shif(int x, int y) {
         bld~store_int(flag, 32);
     }
     while(~ ds.slice_empty?()){
-        int x = ds~load_uint(8);
+        int x = ds~load_int(8);
         int w = shif(x, shift);
         bld~store_int(w, 8);
     }
