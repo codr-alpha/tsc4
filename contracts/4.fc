@@ -20,12 +20,11 @@ int shif(int x, int y) {
 }
 
 
-(cell) SHIFT(int shift, cell text){
-    slice ds = text.begin_parse();
+(cell) SHIFT(int shift, slice ds) method_id{
     builder bld = begin_cell();
     
     repeat (ds.slice_refs()) {
-        cell XX = SHIFT(shift, ds~load_ref());
+        cell XX = SHIFT(shift, ds~load_ref().begin_parse());
         bld = store_ref(bld, XX);
     }
     
@@ -45,7 +44,7 @@ int shif(int x, int y) {
 ;; testable
 (cell) caesar_cipher_encrypt(int shift, cell text) method_id {
     shift = shift % 26;
-    return SHIFT(shift, text);
+    return SHIFT(shift, text.begin_parse());
 }
 
 ;; testable
@@ -53,5 +52,5 @@ int shif(int x, int y) {
     shift = shift % 26;
     shift = 26 - shift;
     shift = shift % 26;
-    return SHIFT(shift, text);
+    return SHIFT(shift, text.begin_parse());
 }
