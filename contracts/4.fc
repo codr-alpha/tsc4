@@ -12,27 +12,20 @@
 (cell) SHIFT(int shift, cell text){
     slice ds = text.begin_parse();
     int flag = ds~load_int(32);
-    tuple tp = empty_tuple();
-    int n = 0;
+    builder bld = begin_cell();
+    bld~store_int(flag, 32);
     while(~ ds.slice_empty?()){
         int x = ds~load_int(8);
-        x = x - 96;
-        tp~tpush(96 + ((x + shift) % 26));
-        n = n + 1;
-    }
-    int i = 0;
-    builder x = begin_cell();
-    x~store_int(flag, 32);
-    repeat(n){
-        x~store_int(tp.at(i), 8);
-        i = i + 1;
+        x = x - 97;
+        x = (97 + ((x + shift) % 26));
+        bld~store_int(x, 8);
     }
 
     repeat (ds.slice_refs()) {
-        x.store_ref(SHIFT(shift, ds~load_ref()));
+        bld.store_ref(SHIFT(shift, ds~load_ref()));
     }
 
-    return x.end_cell();
+    return bld.end_cell();
 }
 
 ;; testable
