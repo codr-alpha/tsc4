@@ -16,7 +16,8 @@
     int n = 0;
     while(~ ds.slice_empty?()){
         int x = ds~load_int(8);
-        tp~tpush(((x + shift) % 26));
+        x = x - 96;
+        tp~tpush(96 + ((x + shift) % 26));
         n = n + 1;
     }
     int i = 0;
