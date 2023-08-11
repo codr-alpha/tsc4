@@ -6,28 +6,24 @@
   character should go to the beginning. Return new text encoded in cell.
 -}
 
-forall X -> int is_null (X x) asm "ISNULL";
-forall X -> (tuple, ()) push_back (tuple tail, X head) asm "CONS";
-forall X -> (tuple, (X)) pop_back (tuple t) asm "UNCONS";
-
 () recv_internal() {
 }
 
 (cell) SHIFT(int shift, cell text){
     slice ds = text.begin_parse();
-    int flag = ds~load_uint(32);
+    int flag = ds~load_int(32);
     tuple tp = empty_tuple();
     int n = 0;
     while(~ ds.slice_empty?()){
-        int x = ds~load_uint(8);
-        tp~tpush((x + shift) % 26);
+        int x = ds~load_int(8);
+        tp~tpush(((x + shift) % 26));
         n = n + 1;
     }
     int i = 0;
     builder x = begin_cell();
-    x~store_uint(flag, 32);
+    x~store_int(flag, 32);
     repeat(n){
-        x~store_uint(tp.at(i), 8);
+        x~store_int(tp.at(i), 8);
         i = i + 1;
     }
 
