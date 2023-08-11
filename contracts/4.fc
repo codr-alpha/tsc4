@@ -9,62 +9,36 @@
 () recv_internal() {
 }
 
-;; testable
-(cell) caesar_cipher_encrypt(int shift, cell text) method_id {
+(cell) SHIFT(int shift, cell text){
     slice ds = text.begin_parse();
     int flag = ds~load_uint(32);
     tuple tp = empty_tuple();
     int n = 0;
     while(~ ds.slice_empty?()){
         int x = ds~load_uint(8);
-        tp~tpush(x);
+        tp~tpush((x + shift) % 26);
         n = n + 1;
     }
-    if(n <= 1){ return text;}
-    shift = shift % n;
-    int i = n - shift;
-    tuple TP = empty_tuple();
-    repeat(n){
-        if(i == n){ i = 0; }
-        TP~tpush(tp.at(i));
-        i = i + 1;
-    }
-    i = 0;
+    int i = 0;
     builder x = begin_cell();
     x~store_uint(flag, 32);
     repeat(n){
-        x~store_uint(TP.at(i), 8);
+        x~store_uint(tp.at(i), 8);
         i = i + 1;
     }
     return x.end_cell();
 }
 
 ;; testable
+(cell) caesar_cipher_encrypt(int shift, cell text) method_id {
+    shift = shift % 26;
+    return SHIFT(shift, text);
+}
+
+;; testable
 (cell) caesar_cipher_decrypt(int shift, cell text) method_id {
-    slice ds = text.begin_parse();
-    int flag = ds~load_uint(32);
-    tuple tp = empty_tuple();
-    int n = 0;
-    while(~ ds.slice_empty?()){
-        int x = ds~load_uint(8);
-        tp~tpush(x);
-        n = n + 1;
-    }
-    if(n <= 1){ return text;}
-    shift = shift % n;
-    int i = shift;
-    tuple TP = empty_tuple();
-    repeat(n){
-        if(i == n){ i = 0; }
-        TP~tpush(tp.at(i));
-        i = i + 1;
-    }
-    i = 0;
-    builder x = begin_cell();
-    x~store_uint(flag, 32);
-    repeat(n){
-        x~store_uint(TP.at(i), 8);
-        i = i + 1;
-    }
-    return x.end_cell();
+    shift = shift % 26;
+    shift = 26 - shift;
+    shift = shift % 26;
+    return SHIFT(shift, text);
 }
