@@ -95,7 +95,7 @@ global int ld, ldsz;
         int b = dds~load_uint(1);
         X~store_uint(b, 1);
     }
-    cell V;
+    cell V = begin_cell().end_cell();
     if(bg == 0){
         V = X.store_ref(p).end_cell();
     } else {
