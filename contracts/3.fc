@@ -49,7 +49,7 @@ global int ldsz;
 
 () SAVE(int x){
     if(ans.builder_bits() == 1023){
-        builder y = begin_cell().store_ref(ans.end_cell()).end_cell();
+        builder y = begin_cell().store_ref(ans.end_cell());
         ans = y;
         SAVE(x);
         return ();
