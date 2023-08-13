@@ -16,6 +16,7 @@
 
 -}
 
+;;{-
 int slice_empty?(slice s) asm "SEMPTY";
 int slice_data_empty?(slice s) asm "SDEMPTY";
 (slice, cell) load_ref(slice s) asm( -> 1 0) "LDREF";
@@ -26,16 +27,10 @@ builder store_ref(builder b, cell c) asm(c b) "STREF";
 cell end_cell(builder b) asm "ENDC";
 int slice_bits(slice s) asm "SBITS";
 int slice_refs(slice s) asm "SREFS";
-
+;;-}
 
 () recv_internal() {
 }
-
-global builder ans;
-global slice ds;
-global int flg, flgsz;
-global int val, valsz;
-global int ld, ldsz;
 
 (int) SZ(int x){
     int rt = 0;
@@ -47,45 +42,26 @@ global int ld, ldsz;
     return rt;
 }
 
-(int) LOAD(){
+(slice, int) LOAD(slice ds){
     if(ds.slice_empty?()){
-        return -1;
+        return (ds, -1);
     }
     if(ds.slice_data_empty?()){
         slice Ds = ds~load_ref().begin_parse();
-        ds = Ds;
-        return LOAD();
+        return LOAD(Ds);
     }
-    return ds~load_uint(1);
+    int x = ds~load_uint(1);
+    return (ds, x);
 }
 
-() SSAVE(int x){
+(builder) SSAVE(builder ans, int x){
     if(ans.builder_bits() == 1023){
         cell brr = ans.end_cell();
         builder y = begin_cell().store_ref(brr);
         ans = y;
     }
     ans~store_uint(x, 1);
-}
-
-() RMV() {
-    if(ldsz == 0){
-        return ();
-    }
-    int x = (1 << (ldsz - 1)) & ld; 
-    if(x == 0){
-        SSAVE(0);
-    } else {
-        SSAVE(1);
-    }
-    ldsz = ldsz - 1;
-    ld = ld - x;
-}
-
-() savee(){
-    while(ldsz > 0){
-        RMV();
-    }
+    return ans;
 }
 
 (cell) dfs(cell v, cell p, int bg){
@@ -110,28 +86,55 @@ global int ld, ldsz;
 
 ;; testable
 (cell) find_and_replace(int flag, int value, cell linked_list) method_id {
-    flg = flag; flgsz = SZ(flg);
-    val = value; valsz = SZ(val);
-    ld = 0; ldsz = 0;
-    ds = linked_list.begin_parse();
-    ans = begin_cell();
+    int flg = flag; int flgsz = SZ(flg);
+    int val = value; int valsz = SZ(val);
+    int ld = 0; int ldsz = 0;
+    slice ds = linked_list.begin_parse();
+    builder ans = begin_cell();
 
     do {
-        int x = LOAD();
+        int x = ds~LOAD();
         if(x != -1){
             ldsz = ldsz + 1;
             ld = 2 * ld + x;
             if(ldsz > flgsz){
-                RMV();
+                int xf = (1 << (ldsz - 1)) & ld; 
+                if(xf == 0){
+                    ans = SSAVE(ans, 0);
+                } else {
+                    ans = SSAVE(ans, 1);
+                }
+                ldsz = ldsz - 1;
+                ld = ld - xf;
             }
             if((ld == flg) & (ldsz == flgsz)){
                 ld = val;
                 ldsz = valsz;
-                savee();
+                while(ldsz > 0){
+                    int xf = (1 << (ldsz - 1)) & ld; 
+                    if(xf == 0){
+                        ans = SSAVE(ans, 0);
+                    } else {
+                        ans = SSAVE(ans, 1);
+                    }
+                    ldsz = ldsz - 1;
+                    ld = ld - xf;
+                }
             }
         }
     } until(x == -1);
-    savee();
+
+    while(ldsz > 0){
+        int xf = (1 << (ldsz - 1)) & ld; 
+        if(xf == 0){
+            ans = SSAVE(ans, 0);
+        } else {
+            ans = SSAVE(ans, 1);
+        }
+        ldsz = ldsz - 1;
+        ld = ld - xf;
+    }
+
     cell brr = ans.end_cell();
     return dfs(brr, brr, 1);
 }
