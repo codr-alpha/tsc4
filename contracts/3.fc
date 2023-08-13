@@ -19,7 +19,97 @@
 () recv_internal() {
 }
 
+global builder ans;
+global slice ds;
+global int flg, flgsz;
+global int val, valsz;
+global int ld, ldsz;
+
+(int) SZ(int x){
+    int rt = 0;
+    int i = 1;
+    while(i <= x){
+        i = i * 2;
+        rt = rt + 1;
+    }
+    return rt;
+}
+
+(int) LOAD(){
+    if(ds.slice_empty?() == -1){
+        return -1;
+    }
+    if(ds.slice_data_empty?() == -1){
+        ds = ds~load_ref().begin_parse();
+        return LOAD();
+    }
+    return ds~load_uint(1);
+}
+
+() SAVE(int x){
+    if(ans.builder_bits() == 1023){
+        builder y = begin_cell().store_ref(ans.end_cell()).end_cell();
+        ans = y;
+        SAVE(x);
+        return ();
+    }
+    ans~load_uint(x);
+}
+
+() RMV(){
+    int x = (1 << (ldsz - 1)) & ld; 
+    if(x == 0){
+        SAVE(0);
+    } else{
+        SAVE(1);
+    }
+    ldsz = ldsz - 1;
+    ld = ld - x;
+}
+
+() save(){
+    while(ldsz > 0){
+        RMV();
+    }
+}
+
+(cell) dfs(cell v, cell p, int bg){
+    slice dds = v.begin_parse();
+    if(bg == 0){
+        v = begin_cell().store_uint(dds.load_uint(dds.slice_bits())).store_ref(p).end_cell();
+    }else {
+        v = begin_cell().store_uint(dds.load_uint(dds.slice_bits())).end_cell();
+    }
+    if(dds.slice_refs() == 0){
+        return v;
+    }
+    return dfs(dds.load_ref(), v, 0);
+}
+
 ;; testable
 (cell) find_and_replace(int flag, int value, cell linked_list) method_id {
-  return linked_list;
+    flg = flag; flgsz = SZ(flg);
+    val = value; valsz = SZ(val);
+    ld = 0; ldsz = 0;
+    ds = linked_list.begin_parse();
+    ans = null();
+
+    while(true){
+        int x = LOAD();
+        if(x == -1){
+            break;
+        }
+        ldsz = ldsz + 1;
+        ld = 2 * ld + x;
+        while(ld > flag){
+            RMV();
+        }
+        if((ld == flag) & (ldsz == flgsz)){
+            ld = value;
+            ldsz = vlsz;
+            save();
+        }
+    }
+    save();
+    return dfs(ans.end_cell(), ans.end_cell(), 1);
 }
