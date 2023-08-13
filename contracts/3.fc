@@ -64,8 +64,8 @@ global int ldsz;
     } else{
         SAVE(1);
     }
-    ldsz -= 1;
     ld = ld - x;
+    ldsz -= 1;
 }
 
 () save(){
