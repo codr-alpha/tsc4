@@ -23,7 +23,8 @@ global builder ans;
 global slice ds;
 global int flg, flgsz;
 global int val, valsz;
-global int ld, ldsz;
+global int ld;
+global int ldsz;
 
 (int) SZ(int x){
     int rt = 0;
@@ -53,7 +54,7 @@ global int ld, ldsz;
         SAVE(x);
         return ();
     }
-    ans~load_uint(x);
+    ans~store_uint(x, 1);
 }
 
 () RMV(){
@@ -63,7 +64,7 @@ global int ld, ldsz;
     } else{
         SAVE(1);
     }
-    ldsz = ldsz - 1;
+    ldsz -= 1;
     ld = ld - x;
 }
 
