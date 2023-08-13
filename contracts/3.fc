@@ -98,22 +98,21 @@ global int ld, ldsz;
     ds = linked_list.begin_parse();
     ans = null();
 
-    while(true){
+    do {
         int x = LOAD();
-        if(x == -1){
-            break;
+        if(x != -1){
+            ldsz = ldsz + 1;
+            ld = 2 * ld + x;
+            while(ld > flag){
+                RMV();
+            }
+            if((ld == flag) & (ldsz == flgsz)){
+                ld = value;
+                ldsz = valsz;
+                save();
+            }
         }
-        ldsz = ldsz + 1;
-        ld = 2 * ld + x;
-        while(ld > flag){
-            RMV();
-        }
-        if((ld == flag) & (ldsz == flgsz)){
-            ld = value;
-            ldsz = valsz;
-            save();
-        }
-    }
+    } until(x == -1);
     save();
     return dfs(ans.end_cell(), ans.end_cell(), 1);
 }
