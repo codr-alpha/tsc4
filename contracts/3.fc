@@ -52,7 +52,8 @@ global int ld, ldsz;
         return -1;
     }
     if(ds.slice_data_empty?()){
-        ds = ds~load_ref().begin_parse();
+        slice Ds = ds~load_ref().begin_parse();
+        ds = Ds;
         return LOAD();
     }
     return ds~load_uint(1);
