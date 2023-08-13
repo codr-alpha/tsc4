@@ -54,14 +54,14 @@ global int ld, ldsz;
     if(ds.slice_data_empty?()){
         ds = ds~load_ref().begin_parse();
         return LOAD();
-        ;;;;;;;
     }
     return ds~load_uint(1);
 }
 
 () SSAVE(int x){
     if(ans.builder_bits() == 1023){
-        builder y = begin_cell().store_ref(ans.end_cell());
+        cell brr = ans.end_cell();
+        builder y = begin_cell().store_ref(brr);
         ans = y;
     }
     ans~store_uint(x, 1);
@@ -91,17 +91,20 @@ global int ld, ldsz;
     slice dds = v.begin_parse();
     builder X = begin_cell();
     while(~ dds.slice_data_empty?()){
-        X~store_uint(dds~load_uint(1), 1);
+        int b = dds~load_uint(1);
+        X~store_uint(b, 1);
     }
+    cell V;
     if(bg == 0){
-        v = X.store_ref(p).end_cell();
+        V = X.store_ref(p).end_cell();
     } else {
-        v = X.end_cell();
+        V = X.end_cell();
     }
     if(dds.slice_refs() == 0){
-        return v;
+        return V;
     }
-    return dfs(dds~load_ref(), v, 0);
+    cell nxt = dds~load_ref();
+    return dfs(nxt, V, 0);
 }
 
 ;; testable
@@ -128,5 +131,6 @@ global int ld, ldsz;
         }
     } until(x == -1);
     savee();
-    return dfs(ans.end_cell(), ans.end_cell(), 1);
+    cell brr = ans.end_cell();
+    return dfs(brr, brr, 1);
 }
