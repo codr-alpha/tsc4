@@ -91,14 +91,14 @@ global int ld, ldsz;
 
 (cell) dfs(cell v, cell p, int bg){
     slice dds = v.begin_parse();
+    builder X = begin_cell();
+    while(~ dds.slice_data_empty?()){
+        X~store_uint(dds~load_uint(1), 1);
+    }
     if(bg == 0){
-        int aa = dds.slice_bits();
-        int bb = dds~load_uint(aa);
-        v = begin_cell().store_uint(bb, aa).store_ref(p).end_cell();
+        v = X.store_ref(p).end_cell();
     } else {
-        int aa = dds.slice_bits();
-        int bb = dds~load_uint(aa);
-        v = begin_cell().store_uint(bb, aa).end_cell();
+        v = X.end_cell();
     }
     if(dds.slice_refs() == 0){
         return v;
