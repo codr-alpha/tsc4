@@ -23,8 +23,7 @@ global builder ans;
 global slice ds;
 global int flg, flgsz;
 global int val, valsz;
-global ld;
-global int ldsz;
+global int ld, ldsz;
 
 (int) SZ(int x){
     int rt = 0;
@@ -57,15 +56,15 @@ global int ldsz;
     ans~store_uint(x, 1);
 }
 
-() RMV(){
+() RMV() {
     int x = (1 << (ldsz - 1)) & ld; 
     if(x == 0){
         SAVE(0);
-    } else{
+    } else {
         SAVE(1);
     }
+    ldsz = ldsz - 1;
     ld = ld - x;
-    ldsz -= 1;
 }
 
 () save(){
@@ -77,9 +76,13 @@ global int ldsz;
 (cell) dfs(cell v, cell p, int bg){
     slice dds = v.begin_parse();
     if(bg == 0){
-        v = begin_cell().store_uint(dds.load_uint(dds.slice_bits())).store_ref(p).end_cell();
-    }else {
-        v = begin_cell().store_uint(dds.load_uint(dds.slice_bits())).end_cell();
+        int aa = dds.slice_bits();
+        int bb = dds~load_uint(aa);
+        v = begin_cell().store_uint(bb, aa).store_ref(p).end_cell();
+    } else {
+        int aa = dds.slice_bits();
+        int bb = dds~load_uint(aa);
+        v = begin_cell().store_uint(bb, aa).end_cell();
     }
     if(dds.slice_refs() == 0){
         return v;
@@ -107,7 +110,7 @@ global int ldsz;
         }
         if((ld == flag) & (ldsz == flgsz)){
             ld = value;
-            ldsz = vlsz;
+            ldsz = valsz;
             save();
         }
     }
