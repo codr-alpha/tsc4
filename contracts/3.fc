@@ -87,7 +87,7 @@ global int ld, ldsz;
     if(dds.slice_refs() == 0){
         return v;
     }
-    return dfs(dds.load_ref(), v, 0);
+    return dfs(dds~load_ref(), v, 0);
 }
 
 ;; testable
