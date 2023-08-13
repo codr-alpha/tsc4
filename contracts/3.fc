@@ -23,7 +23,7 @@ global builder ans;
 global slice ds;
 global int flg, flgsz;
 global int val, valsz;
-global int ld;
+global ld;
 global int ldsz;
 
 (int) SZ(int x){
