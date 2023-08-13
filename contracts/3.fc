@@ -16,7 +16,7 @@
 
 -}
 
-
+{-
 int slice_empty?(slice s) asm "SEMPTY";
 int slice_data_empty?(slice s) asm "SDEMPTY";
 (slice, cell) load_ref(slice s) asm( -> 1 0) "LDREF";
@@ -27,7 +27,7 @@ builder store_ref(builder b, cell c) asm(c b) "STREF";
 cell end_cell(builder b) asm "ENDC";
 int slice_bits(slice s) asm "SBITS";
 int slice_refs(slice s) asm "SREFS";
-
+-}
 
 () recv_internal() {
 }
@@ -54,7 +54,7 @@ global int ld, ldsz;
     }
     if(ds.slice_data_empty?()){
         ds = ds~load_ref().begin_parse();
-        return LOAD();
+        return ds~load_uint(1);
     }
     return ds~load_uint(1);
 }
@@ -63,8 +63,6 @@ global int ld, ldsz;
     if(ans.builder_bits() >= 800){
         builder y = begin_cell().store_ref(ans.end_cell());
         ans = y;
-        SSAVE(x);
-        return ();
     }
     ans~store_uint(x, 1);
 }
@@ -119,11 +117,11 @@ global int ld, ldsz;
         if(x != -1){
             ldsz = ldsz + 1;
             ld = 2 * ld + x;
-            while(ldsz > flgsz){
+            if(ldsz > flgsz){
                 RMV();
             }
             if((ld == flg) & (ldsz == flgsz)){
-                ld = value;
+                ld = val;
                 ldsz = valsz;
                 savee();
             }
