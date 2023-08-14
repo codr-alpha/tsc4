@@ -5,7 +5,7 @@
   The first two terms of the Fibonacci sequence are F_0 = 0 and F_1 = 1,
   and the rest are defined as F_n = F_(n-1) + F_(n-2).
   The resulting Fibonacci sequence should be stored in a tuple.
-  For example, a request with N = 1 and K = 3 should return a tuple [1, 1, 2],.......
+  For example, a request with N = 1 and K = 3 should return a tuple [1, 1, 2],
   and a request with N = 201 and K = 4 should return a tuple
   [453973694165307953197296969697410619233826,
   734544867157818093234908902110449296423351,
@@ -14,6 +14,13 @@
 -}
 
 () recv_internal() {
+}
+
+(int, int, int) z(int a1, int a2, int a3, int b1, int b2, int b3){
+    int rt1 = a1 * b1 + a2 * b2;
+    int rt2 = a1 * b2 + a2 * b3;
+    int rt3 = a2 * b2 + a3 * b3;
+    return (rt1, rt2, rt3);
 }
 
 (int) fib(int n){
@@ -42,7 +49,7 @@
     int Fm = 0;
     int F_0 = 0;
     int F_1 = 0;
-    {-
+    
     if(n > 2){
         Fm = 0;
         F_0 = 1;
@@ -54,7 +61,7 @@
         int a3 = Fm;
         while(x > 0){
             if((x & 1) > 0){
-                
+                {-
                 int A1 = F_1;
                 int A2 = F_0;
                 int A3 = Fm;
@@ -64,8 +71,10 @@
                 F_1 = A1 * B1 + A2 * B2;
                 F_0 = A1 * B2 + A2 * B3;
                 Fm = A2 * B2 + A3 * B3;
+                -}
+                (F_1, F_0, Fm) = z(F_1, F_0, Fm, a1, a2, a3);
             }
-            
+            {-
             int A1 = a1;
             int A2 = a2;
             int A3 = a3;
@@ -75,7 +84,9 @@
             a1 = A1 * B1 + A2 * B2;
             a2 = A1 * B2 + A2 * B3;
             a3 = A2 * B2 + A3 * B3;
-            x = (x >> 1);
+            -}
+            (a1, a2, a3) = z(a1, a2, a3, a1, a2, a3);
+            x = x / 2;
         }
     } elseif(n == 0){
         F_0 = 1;
@@ -87,7 +98,7 @@
         F_0 = 1;
         F_1 = 1;
     }
-    -}
+    
     F_0 = fib(n - 1);
     F_1 = fib(n);
     int i = n + 1;
