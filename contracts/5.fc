@@ -16,49 +16,27 @@
 () recv_internal() {
 }
 
-(tuple) F (int f_0, int f_1, int k){
-    int F_0 = f_0;
-    int F_1 = f_1;
-    tuple rt = empty_tuple();
-    int i = 0;
-    repeat(k){
-        i = i + 1;
-        rt~tpush(F_1);
-        if(i != k){
-            int x = F_0 + F_1;
-            F_0 = F_1;
-            F_1 = x;
-        }
-    }
-    return rt;
-}
-
-(int) fib(int i){
-    if(i == -2){
-        return -1;
-    }
-    if(i == -1){
-        return 1;
-    }
-    return (fib(i - 1) + fib(i - 2));
-}
-
 ;; testable
 (tuple) fibonacci_sequence (int n, int k) method_id {
+    tuple result = empty_tuple();
+    if(k == 0){
+        return result;
+    }
     int Fm = 0;
     int F_0 = 0;
     int F_1 = 0;
-    {-
-    if(n > 0){
+    if(n > 2){
         Fm = 0;
         F_0 = 1;
         F_1 = 1;
+        ;;(F_1, F_0, Fm) = pw(F_1, F_0, Fm, n - 1);
         int x = n - 2;
         int a1 = F_1;
         int a2 = F_0;
         int a3 = Fm;
         while(x > 0){
             if((x & 1) > 0){
+                ;;(F_1, F_0, Fm) = z(F_1, F_0, Fm, a1, a2, a3);
                 int A1 = F_1;
                 int A2 = F_0;
                 int A3 = Fm;
@@ -69,6 +47,7 @@
                 F_0 = A1 * B2 + A2 * B3;
                 Fm = A2 * B2 + A3 * B3;
             }
+            ;;(a1, a2, a3) = z(a1, a2, a3, a1, a2, a3);
             int A1 = a1;
             int A2 = a2;
             int A3 = a3;
@@ -80,12 +59,24 @@
             a3 = A2 * B2 + A3 * B3;
             x = (x >> 1);
         }
-    } else {
+    } elseif(n == 0) {
         F_0 = 1;
         F_1 = 0;
+    } elseif(n == 1){
+        F_0 = 0;
+        F_1 = 1;
+    } elseif(n == 2){
+        F_0 = 1;
+        F_1 = 1;
     }
-  -}
-    F_1 = fib(n);
-    F_0 = fib(n - 1);
-    return F(F_0, F_1, k);
+    int i = n + 1;
+    result~tpush(F_1);
+    while(i < (n + k)){
+        int x = F_0 + F_1;
+        F_0 = F_1;
+        F_1 = x;
+        result~tpush(F_1);
+        i = i + 1;
+    }
+    return result;
 }
