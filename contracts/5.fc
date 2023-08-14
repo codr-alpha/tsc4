@@ -40,7 +40,6 @@
 ;; testable
 (tuple) fibonacci_sequence (int n, int k) method_id {
     tuple result = empty_tuple();
- ;;   if(k == 0){ return result; }
     int Fm = 0;
     int F_0 = 0;
     int F_1 = 0;
@@ -56,6 +55,8 @@
             F_0 = 0;
             F_1 = 1;
         }
+        F_0 = -1;
+        F_1 = -1;
     }
     int i = n;
     while(i < (n + k)){
