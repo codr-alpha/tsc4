@@ -16,14 +16,11 @@
 () recv_internal() {
 }
 
-(int, int, int) z(int a1, int a2, int a3, int b1, int b2, int b3){
-    int rt1 = a1 * b1 + a2 * b2;
-    int rt2 = a1 * b2 + a2 * b3;
-    int rt3 = a2 * b2 + a3 * b3;
-    return (rt1, rt2, rt3);
+(int, int, int) z(int a1, int a2, int a3, int b1, int b2, int b3) inline{
+    return (a1 * b1 + a2 * b2, a1 * b2 + a2 * b3, a2 * b2 + a3 * b3);
 }
 
-(int) fib(int n){
+(int) fib(int n) inline{
     if(n == -2){
         return -1;
     }
@@ -50,7 +47,7 @@
     int F_0 = 0;
     int F_1 = 0;
     
-    if(n > 2){
+    if(n > 100){
         Fm = 0;
         F_0 = 1;
         F_1 = 1;
@@ -88,16 +85,7 @@
             (a1, a2, a3) = z(a1, a2, a3, a1, a2, a3);
             x = x / 2;
         }
-    } elseif(n == 0){
-        F_0 = 1;
-        F_1 = 0;
-    } elseif(n == 1){
-        F_0 = 0;
-        F_1 = 1;
-    } elseif(n == 2){
-        F_0 = 1;
-        F_1 = 1;
-    }
+    } 
     
     F_0 = fib(n - 1);
     F_1 = fib(n);
