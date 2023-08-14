@@ -40,7 +40,7 @@
 ;; testable
 (tuple) fibonacci_sequence (int n, int k) method_id {
     tuple result = empty_tuple();
-    if(k == 0){ return result; }
+ ;;   if(k == 0){ return result; }
     int Fm = 0;
     int F_0 = 0;
     int F_1 = 0;
