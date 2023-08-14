@@ -63,16 +63,17 @@
     } else {
         F_1 = 0;
     }
-    int i = n + 1;
-    result~tpush(F_1);
+    int i = n;
     while(i < (n + k)){
-        if(F_1 == 0){
-            F_1 = 1;
-            F_0 = 0;
-        } else {
-            int x = F_0 + F_1;
-            F_0 = F_1;
-            F_1 = x;
+        if(i != n){
+            if(F_1 == 0){
+                F_1 = 1;
+                F_0 = 0;
+            } else {
+                int x = F_0 + F_1;
+                F_0 = F_1;
+                F_1 = x;
+            }
         }
         result~tpush(F_1);
         i = i + 1;
