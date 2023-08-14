@@ -13,6 +13,8 @@
   1923063428480944139667114773918309212080528]
 -}
 
+forall X -> (tuple) to_tuple (X x) asm "NOP";
+
 () recv_internal() {
 }
 
