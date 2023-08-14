@@ -27,7 +27,7 @@
         F_0 = 1;
         F_1 = 1;
         ;;(F_1, F_0, Fm) = pw(F_1, F_0, Fm, n - 1);
-        int x = n - 1;
+        int x = n - 2;
         int a1 = F_1;
         int a2 = F_0;
         int a3 = Fm;
