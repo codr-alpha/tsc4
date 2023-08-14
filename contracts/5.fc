@@ -40,9 +40,9 @@
 (tuple) fibonacci_sequence (int n, int k) method_id {
     tuple result = empty_tuple();
     if(k == 0){ return result; }
-    int Fm;
-    int F_0;
-    int F_1;
+    int Fm = 0;
+    int F_0 = 0;
+    int F_1 = 0;
     if(n > 1){
         Fm = 0;
         F_0 = 1;
