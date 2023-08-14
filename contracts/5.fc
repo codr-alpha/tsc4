@@ -43,6 +43,7 @@
     int Fm = 0;
     int F_0 = 0;
     int F_1 = 0;
+    {-
     if(n > 0){
         Fm = 0;
         F_0 = 1;
@@ -78,6 +79,7 @@
         F_0 = 1;
         F_1 = 0;
     }
+  -}
     F_1 = fib(n);
     F_0 = fib(n - 1);
     return F(F_0, F_1, k);
