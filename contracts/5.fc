@@ -16,9 +16,23 @@
 () recv_internal() {
 }
 
+(tuple) F (int f0, int f1, int k){
+    tuple rt = empty_tuple();
+    int i = n;
+    while(i < (n + k)){
+        if(i != n){
+            int x = F_0 + F_1;
+            F_0 = F_1;
+            F_1 = x;
+        }
+        rt~tpush(F_1);
+        i = i + 1;
+    }
+    return rt;
+}
+
 ;; testable
 (tuple) fibonacci_sequence (int n, int k) method_id {
-    tuple result = empty_tuple();
     int Fm = 0;
     int F_0 = 0;
     int F_1 = 0;
@@ -57,22 +71,8 @@
             x = (x >> 1);
         }
     } else {
+        F_0 = 1;
         F_1 = 0;
     }
-    int i = n;
-    while(i < (n + k)){
-        if(i != n){
-            if(F_1 == 0){
-                F_1 = 1;
-                F_0 = 0;
-            } else {
-                int x = F_0 + F_1;
-                F_0 = F_1;
-                F_1 = x;
-            }
-        }
-        result~tpush(F_1);
-        i = i + 1;
-    }
-    return result;
+    return F(F_0, F_1, k);
 }
