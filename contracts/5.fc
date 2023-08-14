@@ -24,7 +24,7 @@
 }
 
 (int, int, int) pw(int a1, int a2, int a3, int x){
-    int rt1 = 1;
+    {-int rt1 = 1;
     int rt2 = 0;
     int rt3 = 1;
     while(x > 0){
@@ -34,7 +34,19 @@
         (a1, a2, a3) = z(a1, a2, a3, a1, a2, a3);
         x = (x >> 1);
     }
-    return (rt1, rt2, rt3);
+    return (rt1, rt2, rt3);-}
+    int fib0 = 0;
+    int fib1 = 1;
+    int fib2 = 1;
+    x = x - 1;
+    while(x > 0){
+        int xx = fib1 + fib2;
+        fib0 = fib1;
+        fib1 = fib2;
+        fib2 = xx;
+        x = x - 1;
+    }
+    return (fib2, fib1, fib0);
 }
 
 ;; testable
