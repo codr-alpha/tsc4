@@ -16,7 +16,7 @@
 () recv_internal() {
 }
 
-(int, int) fib(int n) inline_ref {
+(int, int) fib(int n) inline {
     int f0 = 1;
     int f1 = 0;
     repeat(n){
@@ -40,9 +40,9 @@
     int i = n + 1;
     result~tpush(F_1);
     while(i < (n + k)){
-        int x = F_0 + F_1;
-        F_0 = F_1;
-        F_1 = x;
+        ;;int x = F_0 + F_1;
+        F_1 = F_1 + F_0;
+        F_0 = F_1 - F_0;
         result~tpush(F_1);
         i = i + 1;
     }
