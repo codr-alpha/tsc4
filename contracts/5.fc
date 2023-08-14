@@ -16,11 +16,11 @@
 () recv_internal() {
 }
 
-(int, int, int) z(int a1, int a2, int a3, int b1, int b2, int b3) inline{
+(int, int, int) z(int a1, int a2, int a3, int b1, int b2, int b3) inline {
     return (a1 * b1 + a2 * b2, a1 * b2 + a2 * b3, a2 * b2 + a3 * b3);
 }
 
-(int) fib(int n) inline{
+(int) fib(int n) inline {
     if(n == -2){
         return -1;
     }
