@@ -61,21 +61,15 @@
         F_1 = 1;
         (F_1, F_0, Fm) = pw(F_1, F_0, Fm, n - 1);
     } else {
+        F_0 = 1;
         F_1 = 0;
     }
     int i = n;
-    result~tpush(F_1);
-    i = i + 1;
     while(i < (n + k)){
         if(i != n){
-            if(F_1 == 0){
-                F_1 = 1;
-                F_0 = 0;
-            } else {
-                int x = F_0 + F_1;
-                F_0 = F_1;
-                F_1 = x;
-            }
+            int x = F_0 + F_1;
+            F_0 = F_1;
+            F_1 = x;
         }
         result~tpush(F_1);
         i = i + 1;
