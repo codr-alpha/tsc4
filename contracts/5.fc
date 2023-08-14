@@ -23,7 +23,14 @@
     if(n == -1){
         return 1;
     }
-    return (fib(n - 1) + fib(n - 2));
+    int f0 = -1;
+    int f1 = 1;
+    repeat(n + 1){
+        int x = f0 + f1;
+        f0 = f1;
+        f1 = x;
+    }
+    return f1;
 }
 
 ;; testable
@@ -35,6 +42,7 @@
     int Fm = 0;
     int F_0 = 0;
     int F_1 = 0;
+    {-
     if(n > 2){
         Fm = 0;
         F_0 = 1;
@@ -79,6 +87,7 @@
         F_0 = 1;
         F_1 = 1;
     }
+    -}
     F_0 = fib(n - 1);
     F_1 = fib(n);
     int i = n + 1;
