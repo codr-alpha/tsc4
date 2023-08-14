@@ -16,7 +16,7 @@
 () recv_internal() {
 }
 
-(int, int) fib(int n) inline {
+(int, int) fib(int n) inline_ref {
     int f0 = 1;
     int f1 = 0;
     repeat(n){
