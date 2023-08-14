@@ -16,17 +16,14 @@
 () recv_internal() {
 }
 
-(tuple) F (int f0, int f1, int k){
+(tuple) F (int F_0, int F_1, int k){
     tuple rt = empty_tuple();
-    int i = n;
-    while(i < (n + k)){
-        if(i != n){
-            int x = F_0 + F_1;
-            F_0 = F_1;
-            F_1 = x;
-        }
+    rt~tpush(F_1);
+    repeat(k - 1){
+        int x = F_0 + F_1;
+        F_0 = F_1;
+        F_1 = x;
         rt~tpush(F_1);
-        i = i + 1;
     }
     return rt;
 }
