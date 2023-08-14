@@ -18,12 +18,15 @@
 
 (tuple) F (int F_0, int F_1, int k){
     tuple rt = empty_tuple();
-    rt~tpush(F_1);
-    repeat(k - 1){
-        int x = F_0 + F_1;
-        F_0 = F_1;
-        F_1 = x;
+    int i = 0;
+    repeat(k){
+        i = i + 1;
         rt~tpush(F_1);
+        if(i != k){
+            int x = F_0 + F_1;
+            F_0 = F_1;
+            F_1 = x;
+        }
     }
     return rt;
 }
