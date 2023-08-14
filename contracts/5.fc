@@ -16,6 +16,16 @@
 () recv_internal() {
 }
 
+(int) fib(int n){
+    if(i == -2){
+        return -1;
+    }
+    if(i == -1){
+        return 1;
+    }
+    return (fib(n - 1) + fib(n - 2));
+}
+
 ;; testable
 (tuple) fibonacci_sequence (int n, int k) method_id {
     tuple result = empty_tuple();
@@ -69,6 +79,8 @@
         F_0 = 1;
         F_1 = 1;
     }
+    F_0 = fib(n - 1);
+    F_1 = fib(n);
     int i = n + 1;
     result~tpush(F_1);
     while(i < (n + k)){
