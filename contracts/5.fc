@@ -67,9 +67,8 @@
     int i = n;
     while(i < (n + k)){
         if(i != n){
-            int x = F_0 + F_1;
-            F_0 = F_1;
-            F_1 = x;
+            F_1 = F_1 + F_0;
+            F_0 = F_1 - F_0;
         }
         result~tpush(F_1);
         i = i + 1;
