@@ -15,40 +15,26 @@
 
 () recv_internal() {
 }
-{-
+
 (int, int, int) z(int a1, int a2, int a3, int b1, int b2, int b3){
     int rt1 = a1 * b1 + a2 * b2;
     int rt2 = a1 * b2 + a2 * b3;
     int rt3 = a2 * b2 + a3 * b3;
     return (rt1, rt2, rt3);
 }
--}
 
 (int, int, int) pw(int a1, int a2, int a3, int x){
-    {-
-    int rt1 = 1;
+    {-int rt1 = 1;
     int rt2 = 0;
     int rt3 = 1;
     while(x > 0){
         if((x & 1) > 0){
-            rt1 = rt1 * a1 + rt2 * a2;
-            rt2 = rt1 * a2 + rt2 * a3;
-            rt3 = rt2 * a2 + rt3 * a3;
-            ;;(rt1, rt2, rt3) = z(rt1, rt2, rt3, a1, a2, a3);
+            (rt1, rt2, rt3) = z(rt1, rt2, rt3, a1, a2, a3);
         }
-
-        int b1 = a1;
-        int b2 = a2;
-        int b3 = a3;
-        a1 = b1 * b1 + b2 * b2;
-        a2 = b1 * b2 + b2 * b3;
-        a3 = b2 * b2 + b3 * b3;
-        ;;(a1, a2, a3) = z(a1, a2, a3, a1, a2, a3);
-
+        (a1, a2, a3) = z(a1, a2, a3, a1, a2, a3);
         x = (x >> 1);
     }
-    return (rt1, rt2, rt3);
-    -}
+    return (rt1, rt2, rt3);-}
     int fib0 = 0;
     int fib1 = 1;
     int fib2 = 1;
@@ -67,21 +53,28 @@
 (tuple) fibonacci_sequence (int n, int k) method_id {
     tuple result = empty_tuple();
     int Fm = 0;
-    int F_0 = 1;
-    int F_1 = 1;
+    int F_0 = 0;
+    int F_1 = 0;
     if(n > 0){
+        Fm = 0;
+        F_0 = 1;
+        F_1 = 1;
         (F_1, F_0, Fm) = pw(F_1, F_0, Fm, n - 1);
     } else {
-        F_0 = 1;
         F_1 = 0;
     }
-    int i = n + 1;
-    result~tpush(F_1);
-    int x = 0;
+    int i = n;
     while(i < (n + k)){
-        x = F_0 + F_1;
-        F_0 = F_1;
-        F_1 = x;
+        if(i != n){
+            if(F_1 == 0){
+                F_1 = 1;
+                F_0 = 0;
+            } else {
+                int x = F_0 + F_1;
+                F_0 = F_1;
+                F_1 = x;
+            }
+        }
         result~tpush(F_1);
         i = i + 1;
     }
