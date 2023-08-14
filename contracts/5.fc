@@ -43,7 +43,7 @@
     int Fm = 0;
     int F_0 = 0;
     int F_1 = 0;
-    if(n > 1){
+    if(n > 0){
         Fm = 0;
         F_0 = 1;
         F_1 = 1;
