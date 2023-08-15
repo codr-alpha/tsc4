@@ -37,14 +37,12 @@
     int F_1 = 0;
     
     (F_0, F_1) = fib(n);
-    int i = n + 1;
     result~tpush(F_1);
-    while(i < (n + k)){
+    repeat(k - 1) {
         int x = F_0 + F_1;
         F_0 = F_1;
         F_1 = x;
         result~tpush(F_1);
-        i = i + 1;
     }
     return result;
 }
