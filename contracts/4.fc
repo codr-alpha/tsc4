@@ -41,7 +41,7 @@ int shif(int x, int y) inline {
 
 ;; testable
 (cell) caesar_cipher_encrypt(int shift, cell text) method_id {
-    return SHIFT(shift, text.begin_parse(), 1);
+    return SHIFT(shift, text.begin_parse());
 }
 
 ;; testable
