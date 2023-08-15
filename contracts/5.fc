@@ -30,8 +30,6 @@
 ;; testable
 (tuple) fibonacci_sequence (int n, int k) method_id {
     tuple result = empty_tuple();
-    tuple z = empty_tuple();
-    int sz = 0;
     if(k == 0){
         return result;
     }
@@ -45,19 +43,8 @@
         int x = F_0 + F_1;
         F_0 = F_1;
         F_1 = x;
-        z~tpush(F_1);
-        sz = sz + 1;
-        if(sz == 30){
-            sz = 0;
-            result~tpush(z);
-            z = empty_tuple();
-        }
+        result~tpush(F_1);
         i = i + 1;
-    }
-    if(sz > 0){
-        sz = 0;
-        result~tpush(z);
-        z = empty_tuple();
     }
     return result;
 }
