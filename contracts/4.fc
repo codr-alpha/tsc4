@@ -52,11 +52,13 @@ int shif(int x, int y) inline {
 
 ;; testable
 (cell) caesar_cipher_encrypt(int shift, cell text) method_id {
+    shift = shift % 26;
     return SHIFT(shift, text.begin_parse(), 1);
 }
 
 ;; testable
 (cell) caesar_cipher_decrypt(int shift, cell text) method_id {
+    shift = shift % 26;
     shift = 26 - shift;
     return SHIFT(shift, text.begin_parse(), 1);
 }
