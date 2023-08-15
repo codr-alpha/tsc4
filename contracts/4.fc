@@ -16,7 +16,7 @@ int shif(int x, int y) inline {
     if((x >= 65) & (x <= 90)) {
         return (x - 65 + y) % 26 + 65;
     }
-    return -1;
+    return x;
 }
 
 
@@ -24,8 +24,7 @@ int shif(int x, int y) inline {
     builder bld = begin_cell();
     
     if (ds.slice_refs() > 0) {
-        cell XX = SHIFT(shift, ds~load_ref().begin_parse(), 0);
-        bld = store_ref(bld, XX);
+        bld = store_ref(bld, SHIFT(shift, ds~load_ref().begin_parse(), 0));
     }
     
     if (bg == 1){
