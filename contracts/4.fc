@@ -26,11 +26,9 @@ int shif(int x, int y) inline {
     if (ds.slice_refs() > 0) {
         bld = store_ref(bld, SHIFT(shift, ds~load_ref().begin_parse()));
     }
-    
-    int flag = ds~load_int(32);
-    bld~store_int(flag, 32);
+
     while(~ ds.slice_empty?()){
-        int x = ds~load_int(8);
+        int x = ds~load_uint(8);
         int w = shif(x, shift);
         bld~store_int(w, 8);
     }
