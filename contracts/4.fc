@@ -9,7 +9,7 @@
 () recv_internal() {
 }
 
-int shif(int x, int y) {
+int shif(int x, int y) inline {
     if((65 <= x) & (x <= 90)) {
         return ((x - 65 + y) % 26) + 65;
     }
