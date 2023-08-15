@@ -10,11 +10,10 @@
 }
 
 int shif(int x, int y) inline {
-    if((65 <= x) & (x <= 90)) {
-        return ((x - 65 + y) % 26) + 65;
-    }
-    if((97 <= x) & (x <= 122)) {
+    if(97 <= x)) {
         return ((x - 97 + y) % 26) + 97;
+    } else {
+        return ((x - 65 + y) % 26) + 65;
     }
     return x;
 }
