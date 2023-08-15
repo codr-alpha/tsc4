@@ -30,7 +30,7 @@ int shif(int x, int y) inline {
     while(~ ds.slice_empty?()){
         int x = ds~load_uint(8);
         int w = shif(x, shift);
-        bld~store_int(w, 8);
+        bld~store_uint(w, 8);
     }
 
 
