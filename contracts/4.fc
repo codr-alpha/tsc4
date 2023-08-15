@@ -20,17 +20,15 @@ int shif(int x, int y) inline {
 }
 
 
-(cell) SHIFT(int shift, slice ds, int bg) {
+(cell) SHIFT(int shift, slice ds) {
     builder bld = begin_cell();
     
     if (ds.slice_refs() > 0) {
-        bld = store_ref(bld, SHIFT(shift, ds~load_ref().begin_parse(), 0));
+        bld = store_ref(bld, SHIFT(shift, ds~load_ref().begin_parse()));
     }
     
-    if (bg == 1){
-        int flag = ds~load_int(32);
-        bld~store_int(flag, 32);
-    }
+    int flag = ds~load_int(32);
+    bld~store_int(flag, 32);
     while(~ ds.slice_empty?()){
         int x = ds~load_int(8);
         int w = shif(x, shift);
@@ -49,5 +47,5 @@ int shif(int x, int y) inline {
 ;; testable
 (cell) caesar_cipher_decrypt(int shift, cell text) method_id {
     shift = 26 - shift;
-    return SHIFT(shift, text.begin_parse(), 1);
+    return SHIFT(shift, text.begin_parse());
 }
