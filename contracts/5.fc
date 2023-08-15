@@ -54,5 +54,10 @@
         }
         i = i + 1;
     }
+    if(sz > 0){
+        sz = 0;
+        result~tpush(z);
+        z = empty_tuple();
+    }
     return result;
 }
