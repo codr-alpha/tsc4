@@ -9,7 +9,7 @@
 () recv_internal() {
 }
 
-(int, cell) dfs(cell x, int hash){
+(int, cell) dfs(cell x, int hash) inline {
     slice ds = x.begin_parse();
     if(ds.slice_hash() == hash){
         return (1, x);
