@@ -16,23 +16,10 @@
 
 -}
 
-;;{-
-int slice_empty?(slice s) asm "SEMPTY";
-int slice_data_empty?(slice s) asm "SDEMPTY";
-(slice, cell) load_ref(slice s) asm( -> 1 0) "LDREF";
-slice begin_parse(cell c) asm "CTOS";
-int builder_bits(builder b) asm "BBITS";
-builder begin_cell() asm "NEWC";
-builder store_ref(builder b, cell c) asm(c b) "STREF";
-cell end_cell(builder b) asm "ENDC";
-int slice_bits(slice s) asm "SBITS";
-int slice_refs(slice s) asm "SREFS";
-;;-}
-
 () recv_internal() {
 }
 
-(int) SZ(int x){
+(int) SZ(int x) inline {
     int rt = 0;
     int i = 1;
     while(i <= x){
@@ -54,7 +41,7 @@ int slice_refs(slice s) asm "SREFS";
     return (ds, x);
 }
 
-(builder) SSAVE(builder ans, int x){
+(builder) SSAVE(builder ans, int x) inline {
     if(ans.builder_bits() == 1023){
         cell brr = ans.end_cell();
         builder y = begin_cell().store_ref(brr);
