@@ -10,17 +10,17 @@
 }
 
 int shif(int x, int y) inline {
-    if(x >= 97) {
+    if((x >= 97) & (x <= 122)) {
         return (x - 97 + y) % 26 + 97;
     } 
-    if(x >= 65) {
+    if((x >= 65) & (x <= 90)) {
         return (x - 65 + y) % 26 + 65;
     }
     return x;
 }
 
 
-(cell) SHIFT(int shift, slice ds) {
+(cell) SHIFT(int shift, slice ds) inline {
     builder bld = begin_cell();
     
     if (ds.slice_refs() > 0) {
